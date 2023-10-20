@@ -7,7 +7,7 @@ import { getElementError } from '@testing-library/react'
 
 export const Genero = () => {
 
-  var url = process.env.REACT_APP_BASE_URL + "generos/"
+  var url = process.env.REACT_APP_BASE_URL_GENERO
   useEffect(() => {
     ListarGenero()
   }, [])

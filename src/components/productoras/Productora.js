@@ -6,7 +6,7 @@ import { show_alert } from '../ui/Functions'
 
 export const Productora = () => {
 
-  var url = process.env.REACT_APP_BASE_URL + "productoras/"
+  var url = process.env.REACT_APP_BASE_URL_PRODUCTORA
   useEffect(() => {
     ListarProductora()
   }, [])

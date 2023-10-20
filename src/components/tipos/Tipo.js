@@ -6,7 +6,7 @@ import { show_alert } from '../ui/Functions'
 
 export const Tipo = () => {
 
-  var url = process.env.REACT_APP_BASE_URL + "tipos/"
+  var url = process.env.REACT_APP_BASE_URL_TIPO
   useEffect(() => {
     ListarTipo()
   }, [])

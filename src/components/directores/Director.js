@@ -6,7 +6,8 @@ import { show_alert } from '../ui/Functions'
 
 export const Director = () => {
 
-  var url = process.env.REACT_APP_BASE_URL + "directores/"
+  var url = process.env.REACT_APP_BASE_URL_DIRECTORES
+  console.log(url)
   useEffect(() => {
     ListarDirector()
 
@@ -38,6 +39,7 @@ export const Director = () => {
   const [_id, setId] = useState('')
   const [nombre, setNombre] = useState('')
   const [estado, setEstado] = useState('')
+  const [ValorSelect , setValorSelect] = useState('')
   const [operacion, setOperacion] = useState('')
   const [title, setTitle] = useState("")
   const [busqueda, setBusqueda] = useState("")
@@ -52,8 +54,11 @@ export const Director = () => {
   }
 
   const ListarDirector = async () => {
-    const { data } = await axios.get(url)
-    setDirector(data)
+    await axios.get(url).then((response) => {
+      console.log(response)
+      setDirector(response.data)
+    })
+
   }
 
   const openModal = (op, _id, nombre, estado) => {
@@ -162,7 +167,12 @@ export const Director = () => {
     })
   }
 
+  const options = [
+    { label: 'Seleccionar', value: 'Seleccionar' },
+    { label: 'Activo', value: true },
+    { label: 'Inactivo', value: false }
 
+  ]
   return (
 
     // BOTON PARA ABRIR MODAL
@@ -235,30 +245,31 @@ export const Director = () => {
             </div>
             <div className='modal-body'>
               <input type='hidden' value={_id} id='id'></input>
-              <input type="text" name="result" id="result" class="form-control"></input>
+              
               <div className='input-group mb-3'>
                 <span className='input-group-text'><i className='fa-solid fa-id-card'></i></span>
                 <input type='text' id='nombre' className='form-control' placeholder='Nombre' value={nombre} onChange={(e) => setNombre(e.target.value)}></input>
               </div>
               <div className='input-group mb-3'>
                 <span className='input-group-text' id='estado'><i className='fa-solid fa-user-check'></i></span>
-                <select type='text' id='directorEstado' className='form-control form-select' value={estado} onChange={(e) => { setEstado(e.target.value) }}>
+                <select type='text' className='form-control form-select' onChange={(e) =>{ setEstado(e.target.value); console.log(e.target.value)}}>
                   <option selected>Seleccionar...</option>
-                  <option value="true">Activo</option>
-                  <option value="false" >Inactivo</option>
-                </select>
-              </div>
-              <div className='d-grid col-6 mx-auto'>
-                <button type="button" onClick={() => validarDatos()} className='btn btn-success'><i className='fa-solid fa-floppy-disk'></i> Guardar</button>
-              </div>
+                  <option >Activo</option>
+                  <option >Inactivo</option>
+                  </select>
+              <p></p>
             </div>
-            <div className='modal-footer'>
-              <button type="button" className='btn btn-secondary' id="btnCerrar" data-bs-dismiss="modal"><i className='fa-solid fa-times'></i> Cerrar </button>
+            <div className='d-grid col-6 mx-auto'>
+              <button type="button" onClick={() => validarDatos()} className='btn btn-success'><i className='fa-solid fa-floppy-disk'></i> Guardar</button>
             </div>
+          </div>
+          <div className='modal-footer'>
+            <button type="button" className='btn btn-secondary' id="btnCerrar" data-bs-dismiss="modal"><i className='fa-solid fa-times'></i> Cerrar </button>
           </div>
         </div>
       </div>
-
     </div>
+
+    </div >
   )
 }
